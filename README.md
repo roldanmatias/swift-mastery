@@ -1,6 +1,6 @@
 # swift-mastery
 
-Day 4 of the 4-week plan: Swift 6.4 language core. One SPM package with all 30 exercises, the StayKit capstone, tests, benchmarks and verified compiler-error snippets.
+One SPM package with all 30 exercises, the StayKit capstone, tests, benchmarks and verified compiler-error snippets.
 
 - Exercises: [notes/swift-6.4-language-exercises.md](notes/swift-6.4-language-exercises.md)
 - Solutions, theory and interview drills: [notes/swift-6.4-language-exercises-responses.md](notes/swift-6.4-language-exercises-responses.md)
