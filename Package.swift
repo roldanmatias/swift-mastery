@@ -1,5 +1,6 @@
 // swift-tools-version: 6.2
 // Day 4 — Swift 6.4 language core. See notes/swift-6.4-language-exercises.md.
+// Day 5 — Concurrency in depth. See notes/swift-6.4-concurrency-exercises.md.
 //
 // Toolchain: this repo is pinned to Swift 6.4.2 via `.swift-version` (swiftly).
 // Swift-6.4-only code is wrapped in `#if compiler(>=6.4)`, so the package also
@@ -63,6 +64,22 @@ let package = Package(
             swiftSettings: warningsAsErrors
         ),
 
+        // Day 5 — concurrency. C01–C08, C13–C20: Swift 6 defaults (nonisolated by default,
+        // `nonisolated async` functions hop to the global executor).
+        .target(name: "Concurrency", swiftSettings: warningsAsErrors),
+
+        // Day 5 — C09–C12: "Approachable Concurrency", the build settings Xcode 26+ turns on
+        // for new app targets: default MainActor isolation (SE-0466) plus
+        // `nonisolated(nonsending)` by default (SE-0461) and inferred isolated conformances (SE-0470).
+        .target(
+            name: "ConcurrencyApp",
+            swiftSettings: warningsAsErrors + [
+                .defaultIsolation(MainActor.self),
+                .enableUpcomingFeature("NonisolatedNonsendingByDefault"),
+                .enableUpcomingFeature("InferIsolatedConformances"),
+            ]
+        ),
+
         // Ex 29–30 benchmarks: `swift run -c release OwnershipBenchmarks`
         .executableTarget(
             name: "OwnershipBenchmarks",
@@ -81,6 +98,7 @@ let package = Package(
         ),
         .testTarget(name: "OwnershipTests", dependencies: ["Ownership", "Language"]),
         .testTarget(name: "StayKitTests", dependencies: ["StayKit", "Language", "Ownership"]),
+        .testTarget(name: "ConcurrencyTests", dependencies: ["Concurrency", "ConcurrencyApp"]),
     ],
     swiftLanguageModes: [.v6]
 )
