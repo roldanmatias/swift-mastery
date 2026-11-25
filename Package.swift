@@ -1,6 +1,7 @@
 // swift-tools-version: 6.2
 // Day 4 — Swift 6.4 language core. See notes/swift-6.4-language-exercises.md.
 // Day 5 — Concurrency in depth. See notes/swift-6.4-concurrency-exercises.md.
+// Day 5 — Combine ↔ async/await. See notes/swift-6.4-combine-exercises.md.
 //
 // Toolchain: this repo is pinned to Swift 6.4.2 via `.swift-version` (swiftly).
 // Swift-6.4-only code is wrapped in `#if compiler(>=6.4)`, so the package also
@@ -80,6 +81,11 @@ let package = Package(
             ]
         ),
 
+        // Day 5 — Combine: a debounced search built twice (Combine and AsyncSequence) against one
+        // contract. The directory is `Sources/Combine`; the target is `CombineSearch` so it
+        // doesn't shadow Apple's `Combine` module.
+        .target(name: "CombineSearch", path: "Sources/Combine", swiftSettings: warningsAsErrors),
+
         // Ex 29–30 benchmarks: `swift run -c release OwnershipBenchmarks`
         .executableTarget(
             name: "OwnershipBenchmarks",
@@ -99,6 +105,7 @@ let package = Package(
         .testTarget(name: "OwnershipTests", dependencies: ["Ownership", "Language"]),
         .testTarget(name: "StayKitTests", dependencies: ["StayKit", "Language", "Ownership"]),
         .testTarget(name: "ConcurrencyTests", dependencies: ["Concurrency", "ConcurrencyApp"]),
+        .testTarget(name: "CombineSearchTests", dependencies: ["CombineSearch", "Concurrency"]),
     ],
     swiftLanguageModes: [.v6]
 )

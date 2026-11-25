@@ -11,6 +11,9 @@ One SPM package with language exercises (30 + the StayKit capstone), concurrency
 - Interview theory: [notes/swift-6.4-language-concurrency.md](notes/swift-6.4-language-concurrency.md)
 - Exercises: [notes/swift-6.4-concurrency-exercises.md](notes/swift-6.4-concurrency-exercises.md)
 - Solutions and drill answers: [notes/swift-6.4-concurrency-exercises-responses.md](notes/swift-6.4-concurrency-exercises-responses.md)
+
+**Combine ↔ async/await**
+- A debounced listings search built twice, Combine and `AsyncSequence`, against one contract: [notes/swift-6.4-combine-exercises.md](notes/swift-6.4-combine-exercises.md)
 - Capstone (a harder module migrated by hand): `swiftmigrator/fixtures/{before,after}/BookingSync`
 
 ## Toolchain
@@ -46,6 +49,8 @@ scripts/diagnose-report.sh                   # Ex 20: @diagnose migration-debt r
 | `Sources/StayKit/` | Capstone: booking engine core |
 | `Sources/Concurrency/` | C01–C08, C13–C20: isolation, reentrancy, Sendable/`Mutex`, regions/`sending`, isolated conformances, structured concurrency, cancellation, streams, clocks, async cleanup |
 | `Sources/ConcurrencyApp/` | C09–C12 built with Approachable Concurrency: default `MainActor` isolation, `NonisolatedNonsendingByDefault`, `InferIsolatedConformances` |
+| `Sources/Combine/` | target `CombineSearch`: the Combine pipeline, the `AsyncSequence` rewrite, hand-written `debounce` / `removeDuplicates` / `mapLatest`, and the Combine ↔ async bridges |
+| `Tests/CombineSearchTests/` | one 8-criterion contract run against both pipelines, plus bridge and operator tests (manual scheduler and clock, no `sleep`) |
 | `Tests/ConcurrencyTests/` | 75 deterministic tests (no `sleep`): gates, barriers, streams and a `ManualClock` |
 | `Benchmarks/OwnershipBenchmarks/` | Release-mode benchmark harness |
 | `CompileFailures/` | One snippet per compile error quoted in the notes (`C*` = an optional `// flags:` line sets `-swift-version 6` etc.) |
